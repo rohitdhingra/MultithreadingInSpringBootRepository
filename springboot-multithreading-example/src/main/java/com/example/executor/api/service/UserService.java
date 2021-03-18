@@ -24,6 +24,21 @@ public class UserService {
 	
 	Logger logger = LoggerFactory.getLogger(UserService.class);
 	
+//	@Async
+	public void saveUsers2(MultipartFile file) throws Exception
+	{	
+//		logger.info("Started the service call of the method saveUsers");
+		long start = System.currentTimeMillis();
+		List<User> users = parseCsvFile(file);
+		logger.info("Saving list of users of size {}"+users.size() +""+ Thread.currentThread().getName());
+		users = repository.saveAll(users);
+		long end = System.currentTimeMillis();
+		logger.info("Total time taken {}",(end - start));
+//		logger.info("Ending the service call of the method saveUsers");
+//		return CompletableFuture.completedFuture(users);
+		
+	}
+	
 	@Async
 	public CompletableFuture<List<User>> saveUsers(MultipartFile file) throws Exception
 	{	

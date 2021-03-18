@@ -39,6 +39,19 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
+	@PostMapping(value = "/users2",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},produces = "application/json")
+	public ResponseEntity saveUsers2(@RequestParam(value = "files") MultipartFile[] files) throws Exception
+	{
+//		logger.info("Started the call of the method saveUsers");
+		for(MultipartFile file: files)
+		{
+			logger.info("Calling the services method");
+			userService.saveUsers2(file);
+		}
+//		logger.info("Ending the call of the method saveUsers");
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
 	@GetMapping(value = "/users",produces = "application/json")
 	public CompletableFuture<ResponseEntity> findAllUsers()
 	{
